@@ -19,8 +19,8 @@
     "packageJson": {
       "dependencies": [
         "npm:@rescript/core@1",
-        "npm:@rescript/react@0.12",
-        "npm:rescript@^11.1.0"
+        "npm:@rescript/react@~0.14.2",
+        "npm:rescript@13.0.0-alpha.3"
       ]
     }
   }

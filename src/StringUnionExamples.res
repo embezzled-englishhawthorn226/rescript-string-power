@@ -19,13 +19,13 @@ type status = [#pending | #active | #completed | #cancelled]
 // HTTP methods - uppercase string representation
 @stringUnion
 type httpMethod = [
-  | @as("GET") #get
-  | @as("POST") #post
-  | @as("PUT") #put
-  | @as("PATCH") #patch
-  | @as("DELETE") #delete
-  | @as("HEAD") #head
-  | @as("OPTIONS") #options
+  | #get
+  | #post
+  | #put
+  | #patch
+  | #delete
+  | #head
+  | #options
 ]
 
 // ============================================================================
@@ -35,10 +35,10 @@ type httpMethod = [
 // Maps to PostgreSQL enum or CHECK constraint values
 @stringUnion
 type userRole = [
-  | @as("ADMIN") #admin
-  | @as("MODERATOR") #moderator
-  | @as("MEMBER") #member
-  | @as("GUEST") #guest
+  | #admin
+  | #moderator
+  | #member
+  | #guest
 ]
 
 // ============================================================================
@@ -47,11 +47,11 @@ type userRole = [
 
 @stringUnion
 type errorCode = [
-  | @as("AUTH_FAILED") #authFailed
-  | @as("NOT_FOUND") #notFound
-  | @as("RATE_LIMITED") #rateLimited
-  | @as("VALIDATION_ERROR") #validationError
-  | @as("INTERNAL_ERROR") #internalError
+  | #authFailed
+  | #notFound
+  | #rateLimited
+  | #validationError
+  | #internalError
 ]
 
 // ============================================================================

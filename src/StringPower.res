@@ -3,7 +3,7 @@
 //
 // StringPower.res
 // A tagged template library for ReScript
-// Pure library, zero PPX, works with native tagged template syntax (v11+)
+// Pure library, zero PPX, works with native tagged template syntax
 
 // ============================================================================
 // CORE TYPES
@@ -55,9 +55,10 @@ type cssValue =
 module Utils = {
   // Interleave statics and dynamics: ["a", "b", "c"] + [1, 2] => "a1b2c"
   let interleave = (statics: array<string>, dynamics: array<string>): string => {
-    let result = ref(statics->Array.getUnsafe(0))
+    let result = ref(statics->RescriptCore.Array.getUnsafe(0))
     for i in 0 to Array.length(dynamics) - 1 {
-      result := result.contents ++ dynamics->Array.getUnsafe(i) ++ statics->Array.getUnsafe(i + 1)
+      result :=
+        result.contents ++ dynamics->RescriptCore.Array.getUnsafe(i) ++ statics->RescriptCore.Array.getUnsafe(i + 1)
     }
     result.contents
   }
@@ -69,10 +70,14 @@ module Utils = {
     ~before: string="",
     ~after: string="",
   ): string => {
-    let result = ref(statics->Array.getUnsafe(0))
+    let result = ref(statics->RescriptCore.Array.getUnsafe(0))
     for i in 0 to Array.length(dynamics) - 1 {
       result :=
-        result.contents ++ before ++ dynamics->Array.getUnsafe(i) ++ after ++ statics->Array.getUnsafe(i + 1)
+        result.contents
+        ++ before
+        ++ dynamics->RescriptCore.Array.getUnsafe(i)
+        ++ after
+        ++ statics->RescriptCore.Array.getUnsafe(i + 1)
     }
     result.contents
   }
@@ -133,7 +138,7 @@ module Fmt = {
     | Default => base
     | Precision(n) =>
       switch v {
-      | F(f) => Float.toFixedWithPrecision(f, ~digits=n)
+      | F(f) => Float.toFixed(f, ~digits=n)
       | _ => base
       }
     | PadLeft(width, char) => String.padStart(base, width, char)
@@ -173,18 +178,18 @@ module Sql = {
   // Parameterised query builder (PostgreSQL $1, $2 style)
   let parameterized: tagged<sqlValue, query> = (statics, dynamics) => {
     let params = []
-    let parts = [statics->Array.getUnsafe(0)]
+    let parts = [statics->RescriptCore.Array.getUnsafe(0)]
 
     dynamics->Array.forEachWithIndex((value, i) => {
       switch value {
       | Raw(s) => {
-          let last = parts->Array.pop->Option.getOr("")
-          parts->Array.push(last ++ s ++ statics->Array.getUnsafe(i + 1))->ignore
+          let last = parts->RescriptCore.Array.pop->RescriptCore.Option.getOr("")
+          parts->Array.push(last ++ s ++ statics->RescriptCore.Array.getUnsafe(i + 1))->ignore
         }
       | _ => {
           params->Array.push(value)->ignore
           parts->Array.push("$" ++ Int.toString(Array.length(params)))->ignore
-          parts->Array.push(statics->Array.getUnsafe(i + 1))->ignore
+          parts->Array.push(statics->RescriptCore.Array.getUnsafe(i + 1))->ignore
         }
       }
     })
@@ -218,13 +223,13 @@ module Sql = {
   }
 
   // Helpers for common value wrapping
-  let str = s => Str(s)
-  let int = i => Int(i)
-  let float = f => Float(f)
-  let bool = b => Bool(b)
-  let null = Null
-  let param = name => Param(name)
-  let raw = s => Raw(s)
+  let str = (s: string): sqlValue => Str(s)
+  let int = (i: int): sqlValue => Int(i)
+  let float = (f: float): sqlValue => Float(f)
+  let bool = (b: bool): sqlValue => Bool(b)
+  let null: sqlValue = Null
+  let param = (name: string): sqlValue => Param(name)
+  let raw = (s: string): sqlValue => Raw(s)
 }
 
 // ============================================================================
@@ -269,13 +274,13 @@ module Css = {
   }
 
   // Value helpers
-  let px = n => Px(n)
-  let rem = n => Rem(n)
-  let em = n => Em(n)
-  let pct = n => Pct(n)
-  let color = c => Color(c)
-  let var = name => Var(name)
-  let raw = s => Raw(s)
+  let px = (n: int): cssValue => Px(n)
+  let rem = (n: float): cssValue => Rem(n)
+  let em = (n: float): cssValue => Em(n)
+  let pct = (n: float): cssValue => Pct(n)
+  let color = (c: string): cssValue => Color(c)
+  let var = (name: string): cssValue => Var(name)
+  let raw = (s: string): cssValue => Raw(s)
 }
 
 // ============================================================================
@@ -304,11 +309,11 @@ module React = {
   // React-safe interpolation
   let jsx: tagged<reactValue, Jsx.element> = (statics, dynamics) => {
     let children = []
-    children->Array.push(React.string(statics->Array.getUnsafe(0)))->ignore
+    children->Array.push(React.string(statics->RescriptCore.Array.getUnsafe(0)))->ignore
 
     dynamics->Array.forEachWithIndex((value, i) => {
       children->Array.push(toElement(value))->ignore
-      children->Array.push(React.string(statics->Array.getUnsafe(i + 1)))->ignore
+      children->Array.push(React.string(statics->RescriptCore.Array.getUnsafe(i + 1)))->ignore
     })
 
     React.array(children)
@@ -341,13 +346,13 @@ module I18n = {
   let slot = name => Slot(name)
 
   let i18n: tagged<slot, translationKey> = (statics, dynamics) => {
-    let fullTemplate = ref(statics->Array.getUnsafe(0))
+    let fullTemplate = ref(statics->RescriptCore.Array.getUnsafe(0))
     let slots = []
 
     dynamics->Array.forEachWithIndex((Slot(name), i) => {
       slots->Array.push(name)->ignore
       fullTemplate :=
-        fullTemplate.contents ++ "{" ++ name ++ "}" ++ statics->Array.getUnsafe(i + 1)
+        fullTemplate.contents ++ "{" ++ name ++ "}" ++ statics->RescriptCore.Array.getUnsafe(i + 1)
     })
 
     {
@@ -358,11 +363,12 @@ module I18n = {
   }
 
   // Apply values to a translation
-  let apply = (key: translationKey, values: Dict.t<string>): string => {
-    let result = ref(key.defaults->Array.getUnsafe(0))
+  let apply = (key: translationKey, values: RescriptCore.Dict.t<string>): string => {
+    let result = ref(key.defaults->RescriptCore.Array.getUnsafe(0))
     key.slots->Array.forEachWithIndex((slotName, i) => {
-      let value = values->Dict.get(slotName)->Option.getOr("{" ++ slotName ++ "}")
-      result := result.contents ++ value ++ key.defaults->Array.getUnsafe(i + 1)
+      let value =
+        values->RescriptCore.Dict.get(slotName)->RescriptCore.Option.getOr("{" ++ slotName ++ "}")
+      result := result.contents ++ value ++ key.defaults->RescriptCore.Array.getUnsafe(i + 1)
     })
     result.contents
   }
@@ -379,9 +385,8 @@ module Url = {
     | Query(string, string)
 
   // URL-encode a string
-  let encode = (s: string): string => {
-    %raw(`encodeURIComponent(s)`)
-  }
+  @val external encodeURIComponent: string => string = "encodeURIComponent"
+  let encode = (s: string): string => encodeURIComponent(s)
 
   // Build URL with safe encoding
   let url: tagged<urlValue, string> = (statics, dynamics) => {
@@ -422,12 +427,12 @@ module Gql = {
     let i = ref(0)
     
     while i.contents < Array.length(chars) {
-      if chars->Array.getUnsafe(i.contents) == "$" {
+      if chars->RescriptCore.Array.getUnsafe(i.contents) == "$" {
         let varStart = i.contents + 1
         i := i.contents + 1
         while (
           i.contents < Array.length(chars) && {
-            let c = chars->Array.getUnsafe(i.contents)
+            let c = chars->RescriptCore.Array.getUnsafe(i.contents)
             (c >= "a" && c <= "z") ||
               (c >= "A" && c <= "Z") ||
               (c >= "0" && c <= "9") ||
@@ -461,12 +466,12 @@ module Gql = {
         | -1 => None
         | idx => {
             let start = idx + String.length(pattern)
-            let rest = String.sliceToEnd(source, ~start)
+            let rest = String.slice(source, ~start, ~end=String.length(source))
             let endIdx =
               rest
               ->String.split("")
               ->Array.findIndexOpt(c => c == "(" || c == "{" || c == " ")
-              ->Option.getOr(String.length(rest))
+              ->RescriptCore.Option.getOr(String.length(rest))
             let name = String.slice(rest, ~start=0, ~end=endIdx)->String.trim
             name == "" ? None : Some(name)
           }

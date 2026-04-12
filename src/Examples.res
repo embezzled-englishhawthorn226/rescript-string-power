@@ -43,7 +43,7 @@ module SqlExamples = {
 
   // Parameterised query (safe, preferred)
   let findUserById = (userId: int) => {
-    parameterized`SELECT * FROM users WHERE id = ${int(userId)}`
+    parameterized`SELECT * FROM users WHERE id = ${Sql.int(userId)}`
     // Returns: { text: "SELECT * FROM users WHERE id = $1", params: [Int(42)] }
   }
 
@@ -52,26 +52,26 @@ module SqlExamples = {
     parameterized`
       SELECT id, name, email 
       FROM users 
-      WHERE name ILIKE ${str("%" ++ name ++ "%")}
-        AND age BETWEEN ${int(minAge)} AND ${int(maxAge)}
+      WHERE name ILIKE ${Sql.str("%" ++ name ++ "%")}
+        AND age BETWEEN ${Sql.int(minAge)} AND ${Sql.int(maxAge)}
       ORDER BY created_at DESC
     `
   }
 
   // With raw table name (careful!)
   let findInTable = (tableName: string, id: int) => {
-    parameterized`SELECT * FROM ${raw(tableName)} WHERE id = ${int(id)}`
+    parameterized`SELECT * FROM ${Sql.raw(tableName)} WHERE id = ${Sql.int(id)}`
   }
 
   // Named parameters (for libraries that support :name style)
-  let namedParams = (userId: int) => {
-    inline`SELECT * FROM users WHERE id = ${param("userId")}`
+  let namedParams = (_userId: int) => {
+    inline`SELECT * FROM users WHERE id = ${Sql.param("userId")}`
     // Returns: "SELECT * FROM users WHERE id = :userId"
   }
 
   // Safe builder with injection checking
   let safeQuery = (email: string) => {
-    switch safe`SELECT * FROM users WHERE email = ${str(email)}` {
+    switch safe`SELECT * FROM users WHERE email = ${Sql.str(email)}` {
     | Ok(query) => Some(query)
     | Error(InjectionAttempt(msg)) => {
         Console.error("Security: " ++ msg)
@@ -149,14 +149,9 @@ module ReactExamples = {
     jsx`Hello ${t(username)}, click ${el(link)} to continue.`
   }
 
-  // Full component example
-  module Greeting = {
-    @react.component
-    let make = (~name: string, ~items: int) => {
-      <div>
-        {jsx`Dear ${t(name)}, you have ${i(items)} items in your cart.`}
-      </div>
-    }
+  // Component-friendly helper content
+  let greetingContent = (~name: string, ~items: int) => {
+    jsx`Dear ${t(name)}, you have ${i(items)} items in your cart.`
   }
 }
 
@@ -197,8 +192,8 @@ module UrlExamples = {
   }
 
   // With query parameters
-  let search = (query: string, page: int) => {
-    url`/search?${query("q", query)}&${query("page", Int.toString(page))}`
+  let search = (searchTerm: string, page: int) => {
+    url`/search?${Url.query("q", searchTerm)}&${Url.query("page", Int.toString(page))}`
   }
 
   // API endpoint
@@ -301,7 +296,7 @@ Check out the ${link("documentation", "https://example.com/docs")} for more info
 Key features:
 - ${i("Type-safe")} string handling
 - ${b("Zero PPX")} required
-- Works with ${c("ReScript v11+")}
+- Works with ${c("ReScript v13")}
 `
   }
 }

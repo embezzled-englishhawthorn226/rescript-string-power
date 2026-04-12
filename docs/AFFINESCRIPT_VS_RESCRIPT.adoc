@@ -201,7 +201,7 @@ AffineScript Source
 // Immutable, GC-managed strings
 let greeting = "Hello, " ++ name ++ "!"
 
-// Tagged templates (v11+)
+// Tagged templates (v13)
 let query = sql`SELECT * FROM users WHERE id = ${Sql.int(userId)}`
 
 // String operations create new strings (GC cleans up old ones)

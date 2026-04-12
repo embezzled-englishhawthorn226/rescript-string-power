@@ -23,14 +23,14 @@
     "build": "rescript",
     "clean": "rescript clean",
     "dev": "rescript -w",
-    "test": "node --test tests/"
+    "test": "rescript && node --test tests/StringPower_test.res.mjs"
   },
   "peerDependencies": {
-    "rescript": ">=11.0.0"
+    "rescript": ">=13.0.0-alpha.1"
   },
   "devDependencies": {
     "@rescript/core": "^1.0.0",
-    "@rescript/react": "^0.12.0",
-    "rescript": "^11.1.0"
+    "@rescript/react": "^0.14.2",
+    "rescript": "13.0.0-alpha.3"
   }
 }

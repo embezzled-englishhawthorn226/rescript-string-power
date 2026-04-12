@@ -4,12 +4,12 @@
 
 image:https://img.shields.io/badge/CRG-B-green?style=flat-square[CRG B,link=https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades]
 image:https://img.shields.io/badge/licence-PMPL--1.0--or--later-blue?style=flat-square[Licence,link=LICENSE]
-image:https://img.shields.io/badge/ReScript-v11%2B-e6484f?style=flat-square[ReScript v11+]
+image:https://img.shields.io/badge/ReScript-v13-e6484f?style=flat-square[ReScript v13]
 image:https://img.shields.io/badge/Rust-stable-dea584?style=flat-square[Rust]
 
 Tagged template utilities for ReScript — SQL, CSS, GraphQL, i18n, and more.
 
-*Zero PPX. Pure library. ReScript v11+ native syntax.*
+*Zero PPX. Pure library. ReScript v13 native syntax.*
 
 toc::[]
 
@@ -38,7 +38,7 @@ TypeScript's string handling is genuinely superior to ReScript's in several ways
 | String concat with manual conversion
 |===
 
-*ReScript v11 added tagged templates* — the syntax exists. What was missing was a library to make them useful.
+*ReScript added tagged templates* — the syntax exists. What was missing was a library to make them useful.
 
 This library provides:
 
@@ -484,5 +484,5 @@ See link:LICENSE[LICENSE] for the full text.
 
 GitHub: https://github.com/hyperpolymath/rescript-string-power
 
-Issues and pull requests welcome. Please use ReScript v11+ syntax and
+Issues and pull requests welcome. Please use ReScript v13 syntax and
 UK English spelling in documentation. See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc].

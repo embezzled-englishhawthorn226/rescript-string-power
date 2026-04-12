@@ -48,7 +48,7 @@ let testFmtHtmlEscape = () => {
 
 let testSqlParameterized = () => {
   open Sql
-  let query = parameterized`SELECT * FROM users WHERE id = ${int(42)}`
+  let query = parameterized`SELECT * FROM users WHERE id = ${Sql.int(42)}`
   assert(query.text == "SELECT * FROM users WHERE id = $1")
   assert(Array.length(query.params) == 1)
   Console.log("✓ Sql.parameterized")
@@ -56,7 +56,7 @@ let testSqlParameterized = () => {
 
 let testSqlMultipleParams = () => {
   open Sql
-  let query = parameterized`SELECT * FROM users WHERE name = ${str("Alice")} AND age > ${int(18)}`
+  let query = parameterized`SELECT * FROM users WHERE name = ${Sql.str("Alice")} AND age > ${Sql.int(18)}`
   assert(String.includes(query.text, "$1"))
   assert(String.includes(query.text, "$2"))
   assert(Array.length(query.params) == 2)
@@ -65,7 +65,7 @@ let testSqlMultipleParams = () => {
 
 let testSqlRaw = () => {
   open Sql
-  let query = parameterized`SELECT * FROM ${raw("users")} WHERE id = ${int(1)}`
+  let query = parameterized`SELECT * FROM ${Sql.raw("users")} WHERE id = ${Sql.int(1)}`
   assert(String.includes(query.text, "FROM users WHERE"))
   assert(Array.length(query.params) == 1)
   Console.log("✓ Sql.raw passthrough")
@@ -124,7 +124,7 @@ let testI18nApply = () => {
 
 let testUrlEncoding = () => {
   open Url
-  let result = url`/search?q=${param("hello world")}`
+  let result = url`/search?q=${Url.param("hello world")}`
   assert(String.includes(result, "hello%20world"))
   Console.log("✓ Url encoding")
 }

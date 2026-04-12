@@ -10,7 +10,7 @@ first time.
 
 Two things, shipped together because they address the same gap:
 
-. A **ReScript library** (`src/StringPower.res`) that turns ReScript v11's
+. A **ReScript library** (`src/StringPower.res`) that turns ReScript v13's
   native tagged-template syntax into something practical: SQL query
   builders, CSS templates, HTML-safe string interpolation, URL encoders,
   GraphQL document parsers, React JSX interpolation, and i18n key
