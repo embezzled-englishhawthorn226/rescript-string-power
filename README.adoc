@@ -1,7 +1,12 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-FileCopyrightText: 2025-2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+
 = ReScript String Power
 :toc:
 :toc-placement!:
 
+image:https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=opensourcesecurity[OpenSSF Best Practices,link="https://www.bestpractices.dev/en/projects/new?repo_url=https://github.com/hyperpolymath/rescript-string-power"]
+image:https://api.thegreenwebfoundation.org/greencheckimage/github.com[Green Web,link="https://www.thegreenwebfoundation.org/green-web-check/?url=github.com"]
 image:https://img.shields.io/badge/CRG-B-green?style=flat-square[CRG B,link=https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades]
 image:https://img.shields.io/badge/licence-PMPL--1.0--or--later-blue?style=flat-square[Licence,link=LICENSE]
 image:https://img.shields.io/badge/ReScript-v13-e6484f?style=flat-square[ReScript v13]
